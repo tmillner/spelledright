@@ -1,0 +1,36 @@
+{
+  "name": "spelledright",
+  "version": "1.0.0",
+  "description": "This project is a js library used to facilitate spell checks on HTML pages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "js",
+    "spellcheck",
+    "spell-check",
+    "spelling",
+    "testing",
+    "checker",
+    "spelling",
+    "spell"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-preset-es2015": "^6.5.0",
+    "jasmine": "^2.4.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "grunt-babel": "^6.0.0",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jasmine": "^1.0.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha": "^0.4.15",
+    "mocha": "^2.4.5",
+    "webdriverio": "^4.0.3"
+  }
+}
