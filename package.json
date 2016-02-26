@@ -4,7 +4,7 @@
   "description": "This project is a js library used to facilitate spell checks on HTML pages",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine spec/*spec.js"
   },
   "keywords": [
     "js",
@@ -25,12 +25,13 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "express": "^4.13.4",
     "grunt-babel": "^6.0.0",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-jasmine": "^1.0.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-mocha": "^0.4.15",
     "mocha": "^2.4.5",
-    "webdriverio": "^4.0.3"
+    "request": "^2.69.0"
   }
 }

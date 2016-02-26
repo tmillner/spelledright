@@ -1,7 +1,7 @@
 spelledright
 ===============
 
-This project is a js library used to facilitate spell checks on HTML pages
+This project is a js library used to facilitate spell checks on HTML pages in English.
 
 
 ### The Mechanism
