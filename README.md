@@ -1,7 +1,7 @@
 spelledright
 ===============
 
-This project is a js library used to facilitate spell checks on HTML pages in English.
+This project is a js library used to facilitate spell checks on HTML pages in English. It wraps around [cfinke/Typo.js](https://github.com/cfinke/Typo.js).
 
 
 ### The Mechanism

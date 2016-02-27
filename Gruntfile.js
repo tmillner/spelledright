@@ -6,47 +6,23 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		"watch" : {
-			"rootEs6" : {
+			"es6Files" : {
 				"files" : ["./**/*.es6"],
-				"tasks" : ["babel:rootConversion"]
+				"tasks" : ["babel:es6Files"]
 			},
-			"jasmineSpecsEs6" : {
-				"files" : ["spec/**/*.es6"],
-				"tasks" : ["babel:jasmineSpecs"]
-			},
-			"jstests" : {
-				"files" : ["./**/*.js"],
-				"tasks" : ["jasmine"]	
-			}
 		},
 		"babel" : {
 			"options" : {
-				"sourceMap": true,
+				"sourceMap": false,
 				"presets": ["es2015"]
 			},
-			"rootConversion": {
+			"es6Files": {
 				"files": [
 				{
 					"expand": true,
-					"src": ["*.es6"],
-					"cwd": "./",
-					"dest": "lib/",
+					"src": ["!node_modules", "./**/*.es6"],
 					"ext": ".js",
-					"extDot": "last",
-					"flatten": true
-				}]
-			},
-			"jasmineSpecs": {
-				"specdir" : "spec/",
-				"options" : {
-					"sourceMap": false,
-				},
-				"files": [
-				{
-					"expand": true,
-					"src": ["spec/**/*.es6"],
-					"ext": ".js",
-					"extDot": "last",
+					"extDot": "last"
 				}]
 			}
 		},
@@ -61,3 +37,8 @@ module.exports = function(grunt) {
 		}
 	});
 };
+
+//"jstests" : {
+//				"files" : ["./**/*.js"],
+//				"tasks" : ["jasmine"]	
+//			}
