@@ -22,9 +22,10 @@ export default class SpelledRight {
 		this.getSentences = this.getSentences.bind(this);
 		this._storeText = this._storeText.bind(this);
 		this._parseDom = this._parseDom.bind(this);
+		this._isWhitelisted = this._isWhitelisted.bind(this);
 
 		/* Initialize the library at body node */
-		this.init(node, options);
+		this.init(node, this.options);
 	};
 
 	extendWhitelist([...args]) {
@@ -40,24 +41,48 @@ export default class SpelledRight {
 		let sentences = this.getSentences();
 		for (let i in sentences) 
 		{	
-			let sentence = sentences[i];
+			// Remove non letter gunk
+			let sentence = sentences[i].replace(/[^a-zA-Z0-9\s]+/g, '');
+
+			console.log(`the sentence is ${sentence}`);
 			let words = [...sentence.split(/\s+/)];
 			for (let j in words) 
 			{
 				let word = words[j];
-				/* TODO Don't read numbers or characters */
-				/* TODO Don't mark whitelist items */
-				this.words.push(word);
 				let is_word_okay = this.dict.check(word);
-				console.log(`The word '${word} is okay? ${is_word_okay}`);
+				/* Pre-check to see if need to do whitelist */
+				if (is_word_okay) 
+				{
+					continue;
+				}
+				// If the word has a # in it (ex username), skip
+				if (word.search(/[0-9]/g) !== -1 || 
+					this._isWhitelisted(word)) {
+					continue;
+				}
+
+				this.mispellings.push(word);
+				console.log(`The word '${word}' is NOT okay`);
 			};
 		};
-		return this.words;
+		return this.mispellings;
 	};
 
 	getSentences() {
 		this._parseDom(this.startNode, this._storeText);
 		return this.sentences;
+	};
+
+	_isWhitelisted(word) {
+		let is_whitelisted = false;
+		let whitelist = this.options.whitelist;
+		for (let i in whitelist) {
+			if (word.search(whitelist[i])) {
+				is_whitelisted = true;
+				break;
+			}
+		}
+		return is_whitelisted;
 	};
 
 	_storeText(node) {

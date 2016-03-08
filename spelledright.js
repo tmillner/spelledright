@@ -44,9 +44,10 @@ var SpelledRight = function () {
 		this.getSentences = this.getSentences.bind(this);
 		this._storeText = this._storeText.bind(this);
 		this._parseDom = this._parseDom.bind(this);
+		this._isWhitelisted = this._isWhitelisted.bind(this);
 
 		/* Initialize the library at body node */
-		this.init(node, options);
+		this.init(node, this.options);
 	}
 
 	_createClass(SpelledRight, [{
@@ -71,24 +72,47 @@ var SpelledRight = function () {
 		value: function getMisspellings() {
 			var sentences = this.getSentences();
 			for (var i in sentences) {
-				var sentence = sentences[i];
+				// Remove non letter gunk
+				var sentence = sentences[i].replace(/[^a-zA-Z0-9\s]+/g, '');
+
+				console.log('the sentence is ' + sentence);
 				var words = [].concat(_toConsumableArray(sentence.split(/\s+/)));
 				for (var j in words) {
 					var word = words[j];
-					/* TODO Don't read numbers or characters */
-					/* TODO Don't mark whitelist items */
-					this.words.push(word);
 					var is_word_okay = this.dict.check(word);
-					console.log('The word \'' + word + ' is okay? ' + is_word_okay);
+					/* Pre-check to see if need to do whitelist */
+					if (is_word_okay) {
+						continue;
+					}
+					// If the word has a # in it (ex username), skip
+					if (word.search(/[0-9]/g) !== -1 || this._isWhitelisted(word)) {
+						continue;
+					}
+
+					this.mispellings.push(word);
+					console.log('The word \'' + word + '\' is NOT okay');
 				};
 			};
-			return this.words;
+			return this.mispellings;
 		}
 	}, {
 		key: 'getSentences',
 		value: function getSentences() {
 			this._parseDom(this.startNode, this._storeText);
 			return this.sentences;
+		}
+	}, {
+		key: '_isWhitelisted',
+		value: function _isWhitelisted(word) {
+			var is_whitelisted = false;
+			var whitelist = this.options.whitelist;
+			for (var i in whitelist) {
+				if (word.search(whitelist[i])) {
+					is_whitelisted = true;
+					break;
+				}
+			}
+			return is_whitelisted;
 		}
 	}, {
 		key: '_storeText',
