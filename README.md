@@ -14,3 +14,7 @@ The way it works is by:
 
 #### Example Usage
 - I load a page using a UI test driver, once the page loads, I invoke the spell check 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tmillner/spelledright/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
