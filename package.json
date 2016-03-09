@@ -4,7 +4,8 @@
   "description": "This project is a js library used to facilitate spell checks on HTML pages",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine spec/*spec.js"
+    "test": "jasmine spec/*spec.js",
+    "coverage": "istanbul cover jasmine"
   },
   "keywords": [
     "js",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "coveralls": "^2.11.8",
     "eslint": "^2.3.0",
     "eslint-config-google": "^0.4.0",
     "express": "^4.13.4",
@@ -36,13 +38,16 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-eslint": "^18.0.0",
     "grunt-mocha": "^0.4.15",
+    "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
     "request": "^2.69.0"
   },
   "eslintConfig": {
     "extends": "google",
-    "env" : {
-      "jasmine" : true
+    "env": {
+      "jasmine": true,
+      "node": true,
+      "es6": true
     }
   }
 }
