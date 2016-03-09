@@ -1,104 +1,102 @@
 import Typo from 'typo-js';
 import 'xmldom';
 
+/* eslint guard-for-in: "off" */
 export default class SpelledRight {
-	// TODO: Accept string and a real XML node
-	constructor(node, options) {
-		const DICTS = {'en_US' : 'en_US'};
+  // TODO: Accept string and a real XML node
+  constructor(node, options) {
+    const DICTS = {en_US : 'en_US'}; // eslint-disable-line
 
-		this.sentences = [];
-		this.words = [];
-		this.dict = new Typo(DICTS.en_US);
-		this.mispellings = [];
-		this.options = options || {
-			'ignoreAllCaps' : true,
-			'ignoreComments' : true,
-			'whitelist' : [ /* /regex/ */ ]
-		};
+    this.sentences = [];
+    this.words = [];
+    this.dict = new Typo(DICTS.en_US);
+    this.mispellings = [];
+    this.options = options || {
+      ignoreAllCaps: true,
+      ignoreComments: true,
+      whitelist: [/* /regex/ */]
+    };
 
-		this.extendWhitelist = this.extendWhitelist.bind(this);
-		this.init = this.init.bind(this);
-		this.getMisspellings = this.getMisspellings.bind(this);
-		this.getSentences = this.getSentences.bind(this);
-		this._storeText = this._storeText.bind(this);
-		this._parseDom = this._parseDom.bind(this);
-		this._isWhitelisted = this._isWhitelisted.bind(this);
+    this.extendWhitelist = this.extendWhitelist.bind(this);
+    this.init = this.init.bind(this);
+    this.getMisspellings = this.getMisspellings.bind(this);
+    this.getSentences = this.getSentences.bind(this);
+    this._storeText = this._storeText.bind(this);
+    this._parseDom = this._parseDom.bind(this);
+    this._isWhitelisted = this._isWhitelisted.bind(this);
 
-		/* Initialize the library at body node */
-		this.init(node, this.options);
-	};
+    /* Initialize the library at body node */
+    this.init(node, this.options);
+  }
 
-	extendWhitelist([...args]) {
-		this.options.whitelist.push(...args);
-	};
+  extendWhitelist([...args]) {
+    this.options.whitelist.push(...args);
+  }
 
-	init(startNode, options) {
-		this.startNode = startNode;
-		this.options = options;
-	};
+  init(startNode, options) {
+    this.startNode = startNode;
+    this.options = options;
+  }
 
-	getMisspellings() {
-		let sentences = this.getSentences();
-		for (let i in sentences) 
-		{	
-			// Remove non letter gunk
-			let sentence = sentences[i].replace(/[^a-zA-Z0-9\s]+/g, '');
+  getMisspellings() {
+    let sentences = this.getSentences();
+    for (let i in sentences) {
+      // Remove non letter gunk
+      let sentence = sentences[i].replace(/[^a-zA-Z0-9\s]+/g, '');
 
-			console.log(`the sentence is ${sentence}`);
-			let words = [...sentence.split(/\s+/)];
-			for (let j in words) 
-			{
-				let word = words[j];
-				let is_word_okay = this.dict.check(word);
-				/* Pre-check to see if need to do whitelist */
-				if (is_word_okay) 
-				{
-					continue;
-				}
-				// If the word has a # in it (ex username), skip
-				if (word.search(/[0-9]/g) !== -1 || 
-					this._isWhitelisted(word)) {
-					continue;
-				}
+      console.log(`the sentence is ${sentence}`);
+      let words = [...sentence.split(/\s+/)];
+      for (let j in words) {
+        let word = words[j];
+        let isWordCorrect = this.dict.check(word);
+        /* Pre-check to see if need to do whitelist */
+        if (isWordCorrect) {
+          continue;
+        }
+        // If the word has a # in it (ex username), skip
+        if (word.search(/[0-9]/g) !== -1 ||
+          this._isWhitelisted(word)) {
+          continue;
+        }
 
-				this.mispellings.push(word);
-				console.log(`The word '${word}' is NOT okay`);
-			};
-		};
-		return this.mispellings;
-	};
+        this.mispellings.push(word);
+        console.log(`The word '${word}' is NOT okay`);
+      }
+    }
+    return this.mispellings;
+  }
 
-	getSentences() {
-		this._parseDom(this.startNode, this._storeText);
-		return this.sentences;
-	};
+  getSentences() {
+    this._parseDom(this.startNode, this._storeText);
+    return this.sentences;
+  }
 
-	_isWhitelisted(word) {
-		let is_whitelisted = false;
-		let whitelist = this.options.whitelist;
-		for (let i in whitelist) {
-			if (word.search(whitelist[i])) {
-				is_whitelisted = true;
-				break;
-			}
-		}
-		return is_whitelisted;
-	};
+  _isWhitelisted(word) {
+    let isWhitelisted = false;
+    let whitelist = this.options.whitelist;
+    for (let i in whitelist) {
+      if (word.search(whitelist[i])) {
+        isWhitelisted = true;
+        break;
+      }
+    }
+    return isWhitelisted;
+  }
 
-	_storeText(node) {
-		let text = node.nodeValue ? node.nodeValue.trim() : "";
-		if (text && (node.nodeName !== "SCRIPT") && (node.nodeName !== "STYLE")) {
-			this.sentences.push(text.toString());
-		};
-	};
+  _storeText(node) {
+    let text = node.nodeValue ? node.nodeValue.trim() : "";
+    if (text && (node.nodeName !== "SCRIPT") && (node.nodeName !== "STYLE")) {
+      this.sentences.push(text.toString());
+    }
+  }
 
-	_parseDom(targetNode, func) {
-		func(targetNode);
-		targetNode = targetNode.firstChild;
+  _parseDom(targetNode, func) {
+    func(targetNode);
+    targetNode = targetNode.firstChild;
 
-		while(targetNode) {
-			this._parseDom(targetNode, func);
-			targetNode = targetNode.nextSibling;
-		};
-	};
-};
+    while (targetNode) {
+      this._parseDom(targetNode, func);
+      targetNode = targetNode.nextSibling;
+    }
+  }
+}
