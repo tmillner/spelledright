@@ -23,7 +23,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /* eslint guard-for-in: "off" */
 
 var SpelledRight = function () {
-  // TODO: Accept string and a real XML node
+  /* TODO:
+  * - Accept string and a real XML node
+  * - Handle case sensitivity in whitelist
+  * - Return misspelings as a map with count occurences
+  * - Add toggle to check -, ., :, /, delimited words?
+  */
 
   function SpelledRight(node, options) {
     _classCallCheck(this, SpelledRight);

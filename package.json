@@ -27,7 +27,6 @@
     "xmldom": "^0.1.22"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
     "coveralls": "^2.11.8",
     "eslint": "^2.3.0",
     "eslint-config-google": "^0.4.0",
@@ -37,9 +36,7 @@
     "grunt-contrib-jasmine": "^1.0.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-eslint": "^18.0.0",
-    "grunt-mocha": "^0.4.15",
     "istanbul": "^0.4.2",
-    "mocha": "^2.4.5",
     "request": "^2.69.0"
   },
   "eslintConfig": {

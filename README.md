@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/tmillner/spelledright/badge.svg?branch=master)](https://coveralls.io/github/tmillner/spelledright?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/tmillner/spelledright/badge.svg?branch=master)](https://coveralls.io/github/tmillner/spelledright?branch=master) 
 ## spelledright 
 
 This project is a js library used to facilitate spell checks on HTML pages in English. It wraps around [cfinke/Typo.js](https://github.com/cfinke/Typo.js).

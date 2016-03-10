@@ -3,7 +3,12 @@ import 'xmldom';
 
 /* eslint guard-for-in: "off" */
 export default class SpelledRight {
-  // TODO: Accept string and a real XML node
+  /* TODO:
+  * - Accept string and a real XML node
+  * - Handle case sensitivity in whitelist
+  * - Return misspelings as a map with count occurences
+  * - Add toggle to check -, ., :, /, delimited words?
+  */
   constructor(node, options) {
     const DICTS = {en_US : 'en_US'}; // eslint-disable-line
 
