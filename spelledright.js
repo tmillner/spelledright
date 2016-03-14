@@ -24,7 +24,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var SpelledRight = function () {
   /* TODO:
-  * - Accept string and a real XML node
+  * - Accept string and a real XML node?
   * - Handle case sensitivity in whitelist
   * - Return misspelings as a map with count occurences
   * - Add toggle to check -, ., :, /, delimited words?
@@ -38,7 +38,7 @@ var SpelledRight = function () {
     this.sentences = [];
     this.words = [];
     this.dict = new _typoJs2.default(DICTS.en_US);
-    this.mispellings = [];
+    this.mispellings = { count: 0 };
     this.options = options || {
       ignoreAllCaps: true,
       ignoreComments: true,
@@ -96,8 +96,9 @@ var SpelledRight = function () {
             continue;
           }
 
-          this.mispellings.push(word);
+          this.mispellings[word] = this.mispellings[word] ? this.mispellings[word] + 1 : 1;
           console.log('The word \'' + word + '\' is NOT okay');
+          this.mispellings.count++;
         }
       }
       return this.mispellings;
@@ -114,7 +115,7 @@ var SpelledRight = function () {
       var isWhitelisted = false;
       var whitelist = this.options.whitelist;
       for (var i in whitelist) {
-        if (word.search(whitelist[i])) {
+        if (word.search(whitelist[i]) !== -1) {
           isWhitelisted = true;
           break;
         }

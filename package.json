@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jasmine spec/*spec.js",
-    "coverage": "istanbul cover jasmine"
+    "coverage": "istanbul cover jasmine && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js", 
+    "build": "grunt babel && npm run-script test && npm run-script coverage"
   },
   "keywords": [
     "js",

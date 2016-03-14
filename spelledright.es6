@@ -4,7 +4,7 @@ import 'xmldom';
 /* eslint guard-for-in: "off" */
 export default class SpelledRight {
   /* TODO:
-  * - Accept string and a real XML node
+  * - Accept string and a real XML node?
   * - Handle case sensitivity in whitelist
   * - Return misspelings as a map with count occurences
   * - Add toggle to check -, ., :, /, delimited words?
@@ -15,7 +15,7 @@ export default class SpelledRight {
     this.sentences = [];
     this.words = [];
     this.dict = new Typo(DICTS.en_US);
-    this.mispellings = [];
+    this.mispellings = {count: 0};
     this.options = options || {
       ignoreAllCaps: true,
       ignoreComments: true,
@@ -64,8 +64,10 @@ export default class SpelledRight {
           continue;
         }
 
-        this.mispellings.push(word);
+        this.mispellings[word] = this.mispellings[word] ?
+           this.mispellings[word] + 1 : 1;
         console.log(`The word '${word}' is NOT okay`);
+        this.mispellings.count++;
       }
     }
     return this.mispellings;
@@ -80,7 +82,7 @@ export default class SpelledRight {
     let isWhitelisted = false;
     let whitelist = this.options.whitelist;
     for (let i in whitelist) {
-      if (word.search(whitelist[i])) {
+      if (word.search(whitelist[i]) !== -1) {
         isWhitelisted = true;
         break;
       }

@@ -40,9 +40,9 @@ describe('test pages', () => {
       var spelledright = new SpelledRight(doc);
       let misspellings = spelledright.getMisspellings();
 
-      expect(misspellings.length).toEqual(5);
-      expect(misspellings).toContain('Sa');
-      expect(misspellings).toContain('philE');
+      expect(misspellings.count).toEqual(5);
+      expect(misspellings.Sa).toEqual(1);
+      expect(misspellings.philE).toEqual(1);
 
       done();
     });
@@ -50,9 +50,9 @@ describe('test pages', () => {
 
   it('will load a complex page with all whitelisted misspellings', done => {
     const URL = `${baseUrl}/live-github-page.html`;
-    const INITIAL_WHITELIST = ['textarea', 'Unwatch', 'Unstar', 'cfinke', 'Typojs',
-        'Wiki', 'clientside', 'JavaScript', 'spellchecker', 'Hunspellstyle',
-        'CSS', 'HTTPS', 'SVN', 'repositorys', 'passphrase',
+    const INITIAL_WHITELIST = ['textarea', 'Unwatch', 'Unstar', 'cfinke',
+        'Typojs', 'Wiki', 'clientside', 'JavaScript', 'spellchecker',
+        'Hunspellstyle', 'CSS', 'HTTPS', 'SVN', 'repositorys', 'passphrase',
         'GitHub', 'URLs', 'branchestags', 'Permalink', 'Exampledemo',
         'NodeJS', 'testcases', 'Nodejs', 'READMEmd', 'licensetxt',
         'manifestjson'];
@@ -76,14 +76,14 @@ describe('test pages', () => {
       });
       spelledright.extendWhitelist(EXTENDED_WHITELIST);
       let misspellings = spelledright.getMisspellings();
-      expect(misspellings.length).toEqual(1);
-      expect(misspellings).toContain('mispeling');
+      expect(misspellings.count).toEqual(1);
+      expect(misspellings.mispeling).toEqual(1);
 
       done();
     });
   });
 
-  it('will load accroding to initiated options object', done => {
+  it('will load according to initiated options object', done => {
     done();
   });
 });
