@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/tmillner/spelledright/badge.svg?branch=master)](https://coveralls.io/github/tmillner/spelledright?branch=master) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tmillner/spelledright/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Coverage Status](https://coveralls.io/repos/github/tmillner/spelledright/badge.svg?branch=master)](https://coveralls.io/github/tmillner/spelledright?branch=master) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tmillner/spelledright/trend.png)](https://bitdeli.com/free "Bitdeli Badge") [![npm version](https://badge.fury.io/js/spelledright.svg)](https://badge.fury.io/js/spelledright)
 ## spelledright 
 
 This project is a js library used to facilitate spell checks on XML, HTML pages in English. It wraps around [cfinke/Typo.js](https://github.com/cfinke/Typo.js). 
