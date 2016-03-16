@@ -10,7 +10,7 @@ var _typoJs = require('typo-js');
 
 var _typoJs2 = _interopRequireDefault(_typoJs);
 
-require('xmldom');
+var _xmldom = require('xmldom');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33,11 +33,6 @@ var SpelledRight = function () {
     this.words = [];
     this.dict = new _typoJs2.default(DICTS.en_US);
     this.mispellings = { count: 0 };
-    this.options = options || {
-      ignoreCase: false,
-      ignoreComments: true,
-      whitelist: [/* /regex/ */]
-    };
 
     this.extendWhitelist = this.extendWhitelist.bind(this);
     this.init = this.init.bind(this);
@@ -49,14 +44,21 @@ var SpelledRight = function () {
     this._isSubwordsValid = this._isSubwordsValid.bind(this);
 
     /* Initialize the library at target node */
-    this.init(node, this.options);
+    this.init(node, options);
   }
 
   _createClass(SpelledRight, [{
     key: 'init',
     value: function init(startNode, options) {
+      if (typeof startNode === 'string') {
+        startNode = new _xmldom.DOMParser().parseFromString(startNode, 'text/xml');
+      }
       this.startNode = startNode;
-      this.options = options;
+      this.options = options || {
+        ignoreCase: false,
+        ignoreComments: true,
+        whitelist: [/* /regex/ */]
+      };
     }
   }, {
     key: 'extendWhitelist',

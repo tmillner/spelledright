@@ -1,5 +1,5 @@
 import Typo from 'typo-js';
-import 'xmldom';
+import {DOMParser} from 'xmldom';
 
 /* eslint guard-for-in: "off" */
 export default class SpelledRight {
@@ -11,11 +11,6 @@ export default class SpelledRight {
     this.words = [];
     this.dict = new Typo(DICTS.en_US);
     this.mispellings = {count: 0};
-    this.options = options || {
-      ignoreCase: false,
-      ignoreComments: true,
-      whitelist: [/* /regex/ */]
-    };
 
     this.extendWhitelist = this.extendWhitelist.bind(this);
     this.init = this.init.bind(this);
@@ -27,12 +22,19 @@ export default class SpelledRight {
     this._isSubwordsValid = this._isSubwordsValid.bind(this);
 
     /* Initialize the library at target node */
-    this.init(node, this.options);
+    this.init(node, options);
   }
 
   init(startNode, options) {
+    if (typeof startNode === 'string') {
+      startNode = new DOMParser().parseFromString(startNode, 'text/xml');
+    }
     this.startNode = startNode;
-    this.options = options;
+    this.options = options || {
+      ignoreCase: false,
+      ignoreComments: true,
+      whitelist: [/* /regex/ */]
+    };
   }
 
   extendWhitelist([...args]) {
