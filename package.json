@@ -34,6 +34,7 @@
     "eslint-config-google": "^0.4.0",
     "express": "^4.13.4",
     "grunt-babel": "^6.0.0",
+    "grunt-browserify": "^5.0.0",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-jasmine": "^1.0.0",
     "grunt-contrib-watch": "^0.6.1",

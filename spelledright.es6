@@ -1,8 +1,7 @@
 import Typo from 'typo-js';
-import 'xmldom';
 
 /* eslint guard-for-in: "off" */
-export default class SpelledRight {
+module.exports = class SpelledRight {
   constructor(node, options) {
     const DICTS = {en_US : 'en_US'}; // eslint-disable-line
     this.NONALPHANUMERIC = /[^a-zA-Z0-9'\s]+/g; /* but keep single quote */

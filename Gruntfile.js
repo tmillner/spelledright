@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-browserify');
 
   grunt.initConfig({
     META_all: "./**/*.es6",
@@ -39,6 +40,13 @@ module.exports = function(grunt) {
           specs: "spec/*.spec.js",
           helpers: "spec/helpers/*"
         }
+      }
+    },
+    browserify: {
+      mainClass: {
+        src: './browserify.js',
+        dest: './dist/spelledright.js',
+        require: ['typo-js', './spelledright.js'] /* [['./spelledright.js', {expose: 'SpelledRight'}]] */
       }
     }
   });
