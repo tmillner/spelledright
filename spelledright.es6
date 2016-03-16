@@ -44,7 +44,6 @@ export default class SpelledRight {
   getMisspellings() {
     let sentences = this.getSentences();
     for (let sentence of sentences) {
-      console.log(`the sentence is ${sentence}`);
       let words = [...sentence.split(/\s+/)];
 
       for (let word of words) {
@@ -68,7 +67,6 @@ export default class SpelledRight {
 
         this.mispellings[word] = this.mispellings[word] ?
            this.mispellings[word] + 1 : 1;
-        console.log(`The word '${word}' is NOT okay`);
         this.mispellings.count++;
       }
     }

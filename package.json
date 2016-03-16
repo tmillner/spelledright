@@ -4,10 +4,10 @@
   "description": "This project is a js library used to facilitate spell checks on HTML pages",
   "main": "index.js",
   "scripts": {
-    "unittest": "jasmine spec/*unit.spec.js",
-    "perftest": "jasmine spec/*perf.spec.js",
+    "unittest": "jasmine spec/*-unit.spec.js",
+    "perftest": "jasmine spec/*-perf.spec.js",
     "coverage": "istanbul cover jasmine && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "build": "grunt babel && npm run-script test && npm run-script coverage"
+    "build": "grunt babel && npm run-script coverage"
   },
   "keywords": [
     "js",

@@ -83,7 +83,6 @@ var SpelledRight = function () {
         for (var _iterator = sentences[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var sentence = _step.value;
 
-          console.log('the sentence is ' + sentence);
           var words = [].concat(_toConsumableArray(sentence.split(/\s+/)));
 
           var _iteratorNormalCompletion2 = true;
@@ -111,7 +110,6 @@ var SpelledRight = function () {
               }
 
               this.mispellings[word] = this.mispellings[word] ? this.mispellings[word] + 1 : 1;
-              console.log('The word \'' + word + '\' is NOT okay');
               this.mispellings.count++;
             }
           } catch (err) {
